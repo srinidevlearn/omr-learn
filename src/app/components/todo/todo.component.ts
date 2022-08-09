@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter, SimpleChanges, OnDestroy } from '@angular/core';
+import { IToDo } from 'src/app/interface/todo.interface';
 
 @Component({
   selector: 'app-todo',
@@ -19,14 +20,17 @@ export class TodoComponent implements OnInit, OnChanges,OnDestroy{
   @Input() cardTitle:string = '';
   @Output() sendToDoList = new EventEmitter<any>();
 
-  addTask:string='srini asdadsasd'
+  task:string=''
 
-  todo:string[] = [];
+  todo:IToDo[] = [];
+
+  sortBy:'complete'|'created'|null = null
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log('initialized','ngOnInit')
+    console.log('initialized','ngOnInit');
+    this.getStorage();
   }
   ngOnChanges(change:SimpleChanges){
     console.log('onChange',change);
@@ -34,17 +38,61 @@ export class TodoComponent implements OnInit, OnChanges,OnDestroy{
 
   ngOnDestroy(){
     this.todo = [];
-    this.addTask = ''
+    this.task = ''
     console.log('ngOnDestroy')
   }
   addNewTask(){
-    this.todo.push(this.addTask);
-    this.addTask = '';
-    this.sendToDoList.emit(this.todo)
+    // this.todo.push(this.task);
+
+    let todoItem:IToDo = {
+      task:this.task,
+      time:Date.now(), // 1660010554
+      isCompleted:false,
+    }
+    this.task = '';
+    // this.todo.push(todoItem);
+    this.todo = [...this.todo,todoItem];
+    this.updateStorage();
   }
 
-  deleteTask(index:number){
-    this.todo.splice(index,1)
+  markComplete(item:IToDo){
+    this.todo = this.todo.map(todoItem=>{
+      if(item.time === todoItem.time){
+        todoItem.isCompleted = !todoItem.isCompleted
+      }
+      return todoItem;
+    });
+    this.updateStorage()
+  }
+
+  deleteTask(item:IToDo){
+    this.todo = this.todo.filter((todoItem:IToDo)=>{
+      if(item.time !== todoItem.time) return todoItem;
+      return;
+    });
+    this.updateStorage();
+  }
+
+  refresh(){
+    this.sortBy= null
+  }
+  sortByCompleteAction(){
+    this.sortBy = 'complete'
+  }
+  sortByCreatedAction(){
+    this.sortBy = 'created'
+  }
+
+  getStorage(){
+    try {
+      let storageData:any = localStorage.getItem('my-todo')
+      this.todo = storageData ? JSON.parse(storageData) :[]
+    } catch (error) {
+      
+    }
+  }
+  updateStorage(){
+    localStorage.setItem('my-todo',JSON.stringify(this.todo))
   }
 
 }

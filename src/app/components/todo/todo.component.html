@@ -1,16 +1,38 @@
 <div class="card">
     <div class="card-header bg-transparent">
         <div class="card-title text-center">{{cardTitle}}</div>
+        <div class="mb-2">
+            <input type="text" class="form-control w-100" [(ngModel)]="task">
+        </div>
         <div class="d-flex">
-            <div class="w-75"><input type="text" class="form-control w-100" [(ngModel)]="addTask"></div>
-            <div class="w-25"><button type="button" class="btn btn-primary" (click)="addNewTask()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button></div>
+            <div class="me-3"><button type="button" class="btn btn-primary" (click)="addNewTask()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button></div>
+            <div class="me-3"><button type="button" class="btn btn-primary" (click)="sortByCompleteAction()"><i class="fa fa-sort" aria-hidden="true"></i> SortByComplete</button></div>
+            <div class="me-3"><button type="button" class="btn btn-primary" (click)="sortByCreatedAction()"><i class="fa fa-sort" aria-hidden="true"></i> SortByCreated</button></div>
+            <div class="me-3"><button type="button" class="btn btn-primary" (click)="refresh()"><i class="fa fa-cog" aria-hidden="true"></i> Refresh</button></div>
+
         </div>
     </div>
     <div class="card-body">
         <ul class="list-group">
-            <li *ngFor="let item of todo;let index = index;let isFirst = first;let isLast = last"  class="list-group-item d-flex justify-content-between align-items-center">
-                <span [ngClass]="isLast ? 'text-primary': '' ">{{item}}</span>
-                <span class="badge bg-danger rounded-pill" (click)="deleteTask(index)"><i class="fa fa-trash"></i></span>
+            <li *ngFor="let item of (todo | todoSort : sortBy )"  class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+
+                    <span [class.text-decoration-line-through]="item.isCompleted">{{item.task}}</span>
+                    <br>
+                    <small class="text-muted fw-bold" style="font-size: 12px;">
+                        {{item.time | date:'dd/MM/YYYY HH:mm:ss'}}
+                    </small>
+                </div>
+                <div>
+
+                    <span class="badge rounded-pill me-2"
+                    [ngClass]="item.isCompleted ? 'bg-success' : 'bg-primary'"
+                     (click)="markComplete(item)">
+                     <i class="fa fa-check-circle"></i>
+                    </span>
+                    <span class="badge bg-danger rounded-pill" (click)="deleteTask(item)"><i class="fa fa-trash"></i></span>
+                </div>
+
             </li>
            
         </ul>
