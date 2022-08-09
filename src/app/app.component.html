@@ -1,0 +1,8 @@
+
+<div class="container">
+
+    <button type="button" class="btn btn-warning mb-2" (click)="showAndHideTodo()">Toggle Todo list</button>
+
+    <app-todo *ngIf="toggleTodoList" [cardTitle]="setCardTitle" (sendToDoList)="captureTodo($event)"></app-todo>
+
+</div>
