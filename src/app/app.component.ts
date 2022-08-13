@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ng-learn';
 
-  toggleTodoList:boolean = false;
+  toggleTodoList: boolean = false;
 
+  currentView: 'todo' | 'register' = 'todo';
 
   setCardTitle = 'My Todo 22';
-
 
   captureTodo(event: any) {
     console.log(event);
@@ -21,7 +21,14 @@ export class AppComponent {
     console.log(this.title);
   }
 
-  showAndHideTodo(){
-    this.toggleTodoList = !this.toggleTodoList;   
+  showAndHideTodo() {
+    this.toggleTodoList = !this.toggleTodoList;
+  }
+
+  loadTodo() {
+    this.currentView = 'todo'
+  }
+  loadRegisterFrom() {
+    this.currentView = 'register'
   }
 }
