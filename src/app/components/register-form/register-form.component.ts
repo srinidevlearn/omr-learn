@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { from, of, Subject } from 'rxjs';
+import { BehaviorSubject, from, of, ReplaySubject, Subject } from 'rxjs';
 import { ApiService } from 'src/app/service/api.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.initForms();
     this.registrationForm.valueChanges.subscribe((d) => {
-      console.log(this.registrationForm);
+      // console.log(this.registrationForm);
     });
 
     this.registrationForm.patchValue({
@@ -35,6 +35,8 @@ export class RegisterFormComponent implements OnInit {
     });
     this.samplecoldObservable();
     this.sampleHotObservable();
+    this.exampleForBehaviourSubject();
+    this.exampleForReplaySubject()
   }
   register() {
     this.successMessage = false;
@@ -50,7 +52,7 @@ export class RegisterFormComponent implements OnInit {
   samplecoldObservable() {
     const data$ = of([1, 2, 3, 4, 5]);
     data$.subscribe((d) => {
-      console.log(d);
+      // console.log(d);
     });
   }
 
@@ -58,10 +60,39 @@ export class RegisterFormComponent implements OnInit {
     let data$ = new Subject();
 
     // let data$ = data.asObservable();
+    data$.next([1, 2, 3, 4]);
     data$.subscribe((d) => {
       console.log(d);
     });
 
+
+  }
+  exampleForBehaviourSubject() {
+    let data$ = new BehaviorSubject<any>([]); // last value present;
+
+    // let data$ = data.asObservable();
     data$.next([1, 2, 3, 4]);
+    data$.subscribe((d) => {
+      // console.log(d);
+    });
+
+
+  }
+
+  exampleForReplaySubject() {
+    let data$ = new ReplaySubject<any>(3); // till last  mentioned numbers we can access the stream;
+    // let data$ = data.asObservable();
+    data$.next([1, 2, 3, 4,'fromReplaySub 1']);
+    data$.next([1, 2, 3,4,'fromReplaySub 2']);
+    data$.next([1, 2, 3,4,'fromReplaySub 3']);
+    data$.next([1, 2, 3,4,'fromReplaySub 4']);
+
+
+
+    data$.subscribe((d) => {
+      console.log(d);
+    });
+
+
   }
 }
