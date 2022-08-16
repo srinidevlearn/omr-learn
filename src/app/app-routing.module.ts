@@ -6,10 +6,10 @@ const routes: Routes = [
   { path: 'todo', component: TodoComponent },
   { path: 'register', component: RegisterFormComponent },
   {
-    path: 'lazyLoad',
+    path: 'shopping',
     loadChildren: () =>
-      import('./modules/lazy-loading/lazy-loading.module').then(
-        (m) => m.LazyLoadingModule
+      import('./modules/shopping/shopping.module').then(
+        (m) => m.ShoppingModule
       ),
   },
 ];

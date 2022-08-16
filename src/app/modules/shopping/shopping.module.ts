@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DummyComponent } from './components/dummy/dummy.component';
-import { LazyLoadingRoutingModule } from './lazy-loading-routing.module';
+import { ShoppingRoutingModule } from './shopping-routing.module';
 
 
 
@@ -11,7 +11,7 @@ import { LazyLoadingRoutingModule } from './lazy-loading-routing.module';
     DummyComponent
   ],
   imports: [
-    CommonModule,LazyLoadingRoutingModule
+    CommonModule,ShoppingRoutingModule
   ]
 })
-export class LazyLoadingModule { }
+export class ShoppingModule { }
