@@ -1,0 +1,42 @@
+<div class="card d-flex align-item-center" style="height: 100%;">
+    <img class="card-img-top" [src]="imgURL">
+
+    <div class="card-body">
+        <form [formGroup]="loginForm">
+
+
+            <div class="mb-2">
+
+                <label>Email</label>
+                <input type="email" class="form-control" formControlName="email" name="email"
+                    [class.is-invalid]="emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)"
+                    [class.is-valid]="emailControl?.valid && (emailControl?.dirty || emailControl?.touched)">
+                <div class="invalid-feedback"
+                    *ngIf="emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)">
+                    <div *ngIf="emailControl?.hasError('required')" class="small">It is mandatory Field</div>
+                    <div *ngIf="emailControl?.hasError('email')" class="small">It should have email address</div>
+                    <div *ngIf="emailControl?.hasError('minLength')" class="small">It should have minimum 5 characters
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="password" name="password"
+                [class.is-invalid]="passwordControl?.invalid && (passwordControl?.dirty || passwordControl?.touched)"
+                    [class.is-valid]="passwordControl?.valid && (passwordControl?.dirty || passwordControl?.touched)">
+                <div class="invalid-feedback"
+                *ngIf="passwordControl?.invalid && (passwordControl?.dirty || passwordControl?.touched)">
+                <div *ngIf="passwordControl?.hasError('required')" class="small">It is mandatory Field</div>
+                <div *ngIf="passwordControl?.hasError('minLength')" class="small">It should have minimum 2 characters</div>
+                <div *ngIf="passwordControl?.hasError('maxLength')" class="small">It should not exceed more than 10 characters</div>
+
+            </div>
+            </div>
+
+            <div class="text-center">
+
+                <button type="button" class="btn btn-primary bg-primary" (click)="login()" [disabled]="loginForm.invalid">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
