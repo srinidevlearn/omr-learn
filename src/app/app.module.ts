@@ -9,6 +9,7 @@ import { TodoSortPipe } from './pipes/todo-sort.pipe';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ApiService } from './service/api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { OpacityControllerDirective } from './directive/opacity-controller.directive';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     TodoComponent,
     TodoSortPipe,
     RegisterFormComponent,
+    OpacityControllerDirective,
   ],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
   providers: [ApiService],

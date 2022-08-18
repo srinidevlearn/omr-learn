@@ -11,9 +11,13 @@ export class AppComponent {
   toggleTodoList: boolean = false;
 
   currentView: 'todo' | 'register' = 'todo';
+  viewState:'open'|'close' = 'close'
 
   setCardTitle = 'My Todo 22';
 
+  toggleMenuState(){
+    this.viewState  = this.viewState === 'open' ? 'close' :'open'
+  }
   captureTodo(event: any) {
     console.log(event);
   }

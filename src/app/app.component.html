@@ -1,22 +1,24 @@
+<div class="d-flex justify-content-center" *ngIf="viewState === 'open'">
+    <div class="small badge bg-primary me-2"><a routerLink="/todo" class="text-white">Todo App</a></div>
+    <div class="small badge bg-primary me-2"><a routerLink="/register" class="text-white">Registration Form
+            Sample</a></div>
+    <div class="small badge bg-primary"><a routerLink="/shopping" class="text-white">Shopping App</a></div>
+
+</div>
+
+
+
+<div class="position-absolute  top-0 end-0" appOpacityController style="z-index:999">
+    <button type="button" class="btn btn-sm bg-transparent p-0 m-0" (click)="toggleMenuState()">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-header fa-stack-1x"></i>
+            <i class="fa  fa-stack-2x text-danger" [ngClass]=" viewState === 'open' ? 'fa-ban' : ''"></i>
+        </span>
+    </button>
+</div>
+
+
 
 <div class="container">
-
-    <div class="d-flex">
-        <div class="w-25">
-            <ol class="list-group list-group-numbered">
-                <li class="list-group-item"><a routerLink="/todo">Todo App</a></li>
-                <li class="list-group-item"><a routerLink="/register">Registration Form</a></li>
-                <li class="list-group-item"><a routerLink="/shopping">Shopping App</a></li>
-
-              </ol>
-        </div>
-        <div class="w-75">
-           
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-
-    <!-- <button type="button" class="btn btn-warning mb-2" (click)="showAndHideTodo()">Toggle Todo list</button> -->
-<!-- *ngIf="toggleTodoList" -->
- 
+    <router-outlet></router-outlet>
 </div>
