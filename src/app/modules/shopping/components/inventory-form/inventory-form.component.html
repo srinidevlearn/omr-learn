@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-header text-center">Product Information</div>
+    <div class="card-body">
+        <form [formGroup]="inventoryForm">
+            <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input class="form-control" type="text" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Image</label>
+                <input class="form-control" type="text" formControlName="image">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Price</label>
+                <input class="form-control" type="number" formControlName="price">
+            </div>
+         
+            <div class="mb-3">
+                <label class="form-label">Product Category</label>
+                <input class="form-control" type="text" formControlName="category">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Product Manufacturer</label>
+                <input class="form-control" type="text" formControlName="manufacturer">
+            </div>
+          
+            <div class="mb-3">
+                <label class="form-label">Product Description</label>
+                <textarea class="form-control" formControlName="description">
+
+                </textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary">Update</button>
+
+            </div>
+        </form>
+    </div>
+
+
+</div>

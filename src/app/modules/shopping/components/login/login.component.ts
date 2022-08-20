@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { ShoppingApiService } from '../../services/shopping-api.service';
 
 @Component({
@@ -24,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   loginApiSubscription:any;
 
-  constructor(private fb: FormBuilder,private api:ShoppingApiService) {}
+  constructor(private fb: FormBuilder,private api:ShoppingApiService,private router:Router) {}
 
   ngOnInit(): void {
     this.initLoginForm();
@@ -52,12 +55,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.loginApiSubscription = this.api.login(this.loginForm.value).subscribe((data)=>{
+    this.api.login(this.loginForm.value).pipe(take(1)).subscribe((data)=>{
       localStorage.setItem('my-app-token',data.token)
+      if(data.token){
+        this.router.navigate(['shopping','root'])
+      }
     })
   }
 
   ngOnDestroy(){
-    if(this.loginApiSubscription) this.loginApiSubscription.unsubscribe()
+    // if(this.loginApiSubscription) this.loginApiSubscription.unsubscribe()
   }
 }
