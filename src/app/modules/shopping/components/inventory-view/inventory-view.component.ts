@@ -19,8 +19,15 @@ export class InventoryViewComponent implements OnInit {
     })
   }
 
-  navigatetoEdit(){
-    this.router.navigate(['shopping','inventory','form'])
+  navigatetoEdit(product:any){
+    this.router.navigate(['shopping','inventory','form',product.id])
   }
 
+  navigatetoAdd(){
+    this.router.navigate(['shopping','inventory','form'])
+  }
+  navigateToProductDesc(product:any){
+    this.router.navigate(['shopping','product-detail',product.id])
+
+  }
 }

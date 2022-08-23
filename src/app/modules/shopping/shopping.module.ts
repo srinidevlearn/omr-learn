@@ -10,16 +10,23 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { InventoryFormComponent } from './components/inventory-form/inventory-form.component';
 import { InventoryViewComponent } from './components/inventory-view/inventory-view.component';
-
-
+import { JwtService } from './services/jwt.service';
+import { InventoryGuard } from './services/inventory.guard';
+import { ProductDescComponent } from './components/product-desc/product-desc.component';
+import { ProductdescResolver } from './services/productdesc.resolver';
 
 @NgModule({
-  declarations: [  
-    LoginComponent, ShoopingRootComponent, InventoryComponent, MenuComponent, ProfileComponent, InventoryFormComponent, InventoryViewComponent
+  declarations: [
+    LoginComponent,
+    ShoopingRootComponent,
+    InventoryComponent,
+    MenuComponent,
+    ProfileComponent,
+    InventoryFormComponent,
+    InventoryViewComponent,
+    ProductDescComponent,
   ],
-  imports: [
-    CommonModule,ShoppingRoutingModule,ReactiveFormsModule
-  ],
-  providers:[ShoppingApiService]
+  imports: [CommonModule, ShoppingRoutingModule, ReactiveFormsModule],
+  providers: [ShoppingApiService, JwtService, InventoryGuard,ProductdescResolver],
 })
-export class ShoppingModule { }
+export class ShoppingModule {}

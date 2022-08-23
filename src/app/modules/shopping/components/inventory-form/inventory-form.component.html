@@ -1,5 +1,9 @@
 <div class="card">
-    <div class="card-header text-center">Product Information</div>
+    <div class="card-header text-center">
+        <span *ngIf="productId">Update</span>
+        <span *ngIf="!productId">Add New</span>
+
+        Product Information</div>
     <div class="card-body">
         <form [formGroup]="inventoryForm">
             <div class="mb-3">
@@ -23,7 +27,7 @@
                 <label class="form-label">Product Manufacturer</label>
                 <input class="form-control" type="text" formControlName="manufacturer">
             </div>
-          
+         
             <div class="mb-3">
                 <label class="form-label">Product Description</label>
                 <textarea class="form-control" formControlName="description">
@@ -31,9 +35,8 @@
                 </textarea>
             </div>
             <div class="mb-3 text-center">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-primary">Update</button>
-
+                <button type="button" *ngIf="!productId" class="btn btn-primary" (click)="addNewProduct()">Save</button>
+                <button type="button" *ngIf="productId" class="btn btn-primary" (click)="updateProduct()">Update</button>
             </div>
         </form>
     </div>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -24,6 +24,31 @@ export class ShoppingApiService {
   getAllProducts(){
     let token = localStorage.getItem('my-app-token');
     return this.http.get(this.baseurl + 'product/get?all=true',{
+      headers:{'Authorization':`Bearer ${token}`}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
+
+  getSingleProduct(pId:string){
+    let token = localStorage.getItem('my-app-token');
+    let params =  new HttpParams().set('id', pId)//.set('sort','DESC')
+    return this.http.get(this.baseurl + 'product/get?',{
+      params,
+      headers:{'Authorization':`Bearer ${token}`}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
+
+  addNewProduct(product:any){
+    let token = localStorage.getItem('my-app-token');
+    return this.http
+    .post(this.baseurl + 'product/new', product, {
+      headers:{'Authorization':`Bearer ${token}`}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
+
+  updateNewProduct(product:any){
+    let token = localStorage.getItem('my-app-token');
+    return this.http
+    .put(this.baseurl + 'product/update', product, {
       headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }

@@ -1,0 +1,15 @@
+<div class="card" style="width:20rem">
+    <img [src]="productInformation.image" class="card-img-top" >
+    <div class="card-body">
+        <div class="card-title text-capitalize">{{productInformation.name}}</div>
+        <p>
+            <span class="badge badge-violet">{{productInformation.category}}</span>
+        </p>
+        <p class="card-text">
+            {{productInformation.description}}
+        </p>
+        <p class="card-text">
+            Price : {{productInformation.price | currency : 'INR'}}
+        </p>
+    </div>
+</div>

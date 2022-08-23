@@ -1,50 +1,61 @@
-<table class="table table-sm table-hovered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Availability</th>
-            <th>Category</th>
-            <th>Manufacturer</th>
-            <th>Price</th>
-            <th>Action</th>
-
-
-        </tr>
-    </thead>
-    <tbody>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex justify-content-end">
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-primary me-2" (click)="navigatetoAdd()">Add</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm table-hovered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Availability</th>
+                    <th>Category</th>
+                    <th>Manufacturer</th>
+                    <th>Price</th>
+                    <th>Action</th>
         
-        <tr class="align-middle" *ngFor="let product of  productDataSource;let index = index">
-            <td>{{index + 1}}</td>
-            <td>
-                <img [src]="product.image" width="75" height="75" class="img-thumbnail rounded-circle">
-            </td>
-            <td>{{product.name}}</td>
-            <td>
-
-                <span class="badge bg-success" *ngIf="product.isAvailable">Available</span>
-                <span class="badge bg-danger" *ngIf="!product.isAvailable">Not Available</span>
-
-            </td>
-            <td>
-                <span class="badge bg-primary">{{product.category}}</span>
-            </td>
-            <td>{{product.manufacturer}}</td>
-            <td>{{product.price | currency: 'INR'}}</td>
-
-
-            <td>
-                <button type="button" class="btn btn-sm btn-outline-primary me-2" disabled>View</button>
-                <button type="button" class="btn btn-sm btn-outline-warning me-2" (click)="navigatetoEdit()">Edit</button>
-                <button type="button" class="btn btn-sm btn-outline-danger me-2">Delete</button>
-
-
-            </td>
-
-
-
-
-        </tr>
-    </tbody>
-</table>
+        
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr class="align-middle" *ngFor="let product of  productDataSource;let index = index">
+                    <td>{{index + 1}}</td>
+                    <td>
+                        <img [src]="product.image" width="75" height="75" class="img-thumbnail rounded-circle">
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td>
+        
+                        <span class="badge bg-success" *ngIf="product.isAvailable">Available</span>
+                        <span class="badge bg-danger" *ngIf="!product.isAvailable">Not Available</span>
+        
+                    </td>
+                    <td>
+                        <span class="badge bg-primary">{{product.category}}</span>
+                    </td>
+                    <td>{{product.manufacturer}}</td>
+                    <td>{{product.price | currency: 'INR'}}</td>
+        
+        
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-primary me-2" (click)="navigateToProductDesc(product)">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning me-2" (click)="navigatetoEdit(product)">Edit</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger me-2">Delete</button>
+        
+        
+                    </td>
+        
+        
+        
+        
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
