@@ -14,6 +14,8 @@ import { JwtService } from './services/jwt.service';
 import { InventoryGuard } from './services/inventory.guard';
 import { ProductDescComponent } from './components/product-desc/product-desc.component';
 import { ProductdescResolver } from './services/productdesc.resolver';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ProductdescResolver } from './services/productdesc.resolver';
     InventoryFormComponent,
     InventoryViewComponent,
     ProductDescComponent,
+    ProductCardComponent,
+    CartComponent
   ],
   imports: [CommonModule, ShoppingRoutingModule, ReactiveFormsModule],
   providers: [ShoppingApiService, JwtService, InventoryGuard,ProductdescResolver],

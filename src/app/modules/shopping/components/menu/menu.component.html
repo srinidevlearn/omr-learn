@@ -1,1 +1,59 @@
-<p>menu works!</p>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand">
+                <img [src]="ecomsitelogo" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            </a>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/shopping','inventory']">Inventory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/shopping','menu']">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/shopping','cart']">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="card w-100 bg-tranparent border-0">
+
+        <div class="card-body" *ngIf="loader">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border loader-violet" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+        </div>
+
+
+        <div class="card-body" *ngIf="!loader">
+
+            <div class="row">
+                <ng-container *ngFor="let product of products">
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <app-product-card [_productDesc]="product"></app-product-card>
+                    </div>
+                </ng-container>
+
+            </div>
+
+        </div>
+        <div class="card-footer bg-transparent border-0">
+
+        </div>
+    </div>
+</div>

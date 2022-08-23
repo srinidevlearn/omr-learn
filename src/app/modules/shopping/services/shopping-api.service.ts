@@ -7,8 +7,8 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ShoppingApiService {
-  private baseurl = 'http://localhost:3000/api/';
-  // private baseurl = 'https://vercel-learn.vercel.app/';
+  // private baseurl = 'http://localhost:3000/api/';
+  private baseurl = '/api/';
 
 
   constructor(private http: HttpClient) {}
@@ -49,6 +49,14 @@ export class ShoppingApiService {
     let token = localStorage.getItem('my-app-token');
     return this.http
     .put(this.baseurl + 'product/update', product, {
+      headers:{'Authorization':`Bearer ${token}`}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
+
+  getUserCartItems(userId:string){
+    let token = localStorage.getItem('my-app-token');
+    return this.http
+    .get(this.baseurl + 'cart/getUserCart/'+userId, {
       headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
