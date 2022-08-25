@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JwtService } from '../../services/jwt.service';
 import { ShoppingApiService } from '../../services/shopping-api.service';
+import { take, switchMap,delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -9,28 +11,59 @@ import { ShoppingApiService } from '../../services/shopping-api.service';
 })
 export class MenuComponent implements OnInit, OnDestroy {
   products = [];
-  cartItems:any = {};
+  cartItems: any = {};
   loader: boolean = true;
-  ecomsitelogo =
-    'https://ouch-cdn2.icons8.com/v9tQerukt_ZRIn_4wqPGcLmlPCQway9C3MUD1AKfn10/rs:fit:485:456/wm:1:re:0:0:0.8/wmid:ouch/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNi9k/MDU5NDhhMS1hNjUw/LTRjZDMtYTVmNC02/MmNiNTgzZWRjYzUu/c3Zn.png';
-  constructor(private api: ShoppingApiService, private router: Router,private actRoute:ActivatedRoute) {
-    this.modifyCartItem();
-    console.log(this.cartItems)
+  cartCountValues = 0;
 
+  constructor(
+    private api: ShoppingApiService,
+    private router: Router,
+    private actRoute: ActivatedRoute,
+    private token: JwtService
+  ) {
+    this.modifyCartItem();
   }
   productsubscription: any;
   ngOnInit(): void {
     this.getProducts();
-    
   }
 
-  logout() {}
+  initShoppingItems() {
+    let { userId } = this.token?.tokenPayload;
+    this.api
+      .getUserCartItems(userId)
+      .pipe(
+        switchMap((d) => {
+          this.modifyCartItem(d);
+          console.log(this.cartItems);
+          return this.api.getAllProducts().pipe(take(1));
+        }),
+        take(1)
+      )
+      .subscribe((d) => {
+        this.loader = false;
+        if (d && d.length > 0) {
+          this.products = d.map((i: any) => {
+            i.quantity = 0;
+            if (this.cartItems[i.id]) {
+              i.quantity = this.cartItems[i.id]['quantity'];
+              if (this.cartItems[i.id]['id'])
+                i.cartId = this.cartItems[i.id]['id'];
+            }
+            return i;
+          });
+        }
+      });
+  }
 
-  modifyCartItem(){
-    let data = this.actRoute.snapshot.data['userCartItems'];
-    data.forEach((item:any) => {
+  modifyCartItem(cartData?: any) {
+    let data = cartData
+      ? cartData
+      : this.actRoute.snapshot.data['userCartItems'];
+    this.cartCountValues = data.length;
+    data.forEach((item: any) => {
       let pId = item.product.id;
-        this.cartItems[pId] = item;
+      this.cartItems[pId] = item;
     });
   }
 
@@ -41,17 +74,38 @@ export class MenuComponent implements OnInit, OnDestroy {
       .pipe()
       .subscribe((d) => {
         this.loader = false;
-        if(d && d.length>0){
-
-          this.products = d.map((i:any)=>{
+        if (d && d.length > 0) {
+          this.products = d.map((i: any) => {
             i.quantity = 0;
-            if(this.cartItems[i.id]){
-              i.quantity = this.cartItems[i.id]['quantity']
+            if (this.cartItems[i.id]) {
+              i.quantity = this.cartItems[i.id]['quantity'];
+              if (this.cartItems[i.id]['id'])
+                i.cartId = this.cartItems[i.id]['id'];
             }
             return i;
-          })
+          });
         }
       });
+  }
+  handleCartItems(e: any) {
+    let { userId } = this.token?.tokenPayload;
+    let cartData = { userId, productId: e.id, quantity: e.quantity };
+
+    if (e && e?.quantity && e.quantity > 0)
+      this.api
+        .updateCart(cartData)
+        .pipe(take(1),delay(1000))
+        .subscribe((d) => {
+          // this.initShoppingItems();
+        });
+
+    if (e && e.quantity === 0 && e?.cartId)
+      this.api
+        .deleteCart(e.cartId)
+        .pipe(take(1),delay(1000))
+        .subscribe((d) => {
+          // this.initShoppingItems();
+        });
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { ProductDescComponent } from './components/product-desc/product-desc.com
 import { ProductdescResolver } from './services/productdesc.resolver';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { CartComponent } from './components/cart/cart.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CartComponent } from './components/cart/cart.component';
     InventoryViewComponent,
     ProductDescComponent,
     ProductCardComponent,
-    CartComponent
+    CartComponent,
+    HeaderComponent
   ],
   imports: [CommonModule, ShoppingRoutingModule, ReactiveFormsModule],
   providers: [ShoppingApiService, JwtService, InventoryGuard,ProductdescResolver],

@@ -61,6 +61,19 @@ export class ShoppingApiService {
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
+  updateCart(body:any){
+    let token = localStorage.getItem('my-app-token');
+    return this.http.post(this.baseurl+'/cart/addToCart',body,{
+      headers: {'Authorization':'Bearer '+token}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
+
+  deleteCart(cartId:string){
+    let token = localStorage.getItem('my-app-token');
+    return this.http.delete(this.baseurl+'cart/delete/'+cartId,{
+      headers: {'Authorization':'Bearer '+token}
+    }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
+  }
   returnOnlyData(res: any) {
     return res?.data ? res.data : null;
   }

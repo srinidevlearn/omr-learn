@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand">
+                <img [src]="ecomsitelogo" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            </a>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/shopping','inventory']">Inventory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/shopping','menu']">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/shopping','cart']">Cart
+                        <span *ngIf="cartCount>0" class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:12px">
+                            {{cartCount}}
+                            <span class="visually-hidden">unread messages</span>
+                          </span>
+                    </a>
+                    
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
