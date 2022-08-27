@@ -8,9 +8,10 @@ import { TodoComponent } from './components/todo/todo.component';
 import { TodoSortPipe } from './pipes/todo-sort.pipe';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ApiService } from './service/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OpacityControllerDirective } from './directive/opacity-controller.directive';
-
+import { TokenInterceptor } from './modules/shopping/services/token.interceptor';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,26 @@ import { OpacityControllerDirective } from './directive/opacity-controller.direc
     RegisterFormComponent,
     OpacityControllerDirective,
   ],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
-  providers: [ApiService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HotToastModule.forRoot({
+      position:'top-right',
+      icon:'🛒'
+    }),
+  ],
+  providers: [
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor, // resolution modifiers
+      multi:true
+    },
+  ],
   bootstrap: [AppComponent],
-  exports:[],
+  exports: [],
 })
 export class AppModule {}

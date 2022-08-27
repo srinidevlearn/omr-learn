@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShoppingRoutingModule } from './shopping-routing.module';
 import { LoginComponent } from './components/login/login.component';
@@ -17,6 +17,25 @@ import { ProductdescResolver } from './services/productdesc.resolver';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/token.interceptor';
+
+
+
+// @Injectable()
+// class A{
+//   public fName; public lName;
+//   constructor(fName:string,lName:string){
+//     this.fName = fName;
+//     this.lName = lName;
+
+//   }
+//   fullName(){
+//     return `${this.fName} ${this.lName}`
+//   }
+// }
+// @Injectable()
+// class B{}
 
 @NgModule({
   declarations: [
@@ -30,9 +49,14 @@ import { HeaderComponent } from './components/header/header.component';
     ProductDescComponent,
     ProductCardComponent,
     CartComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [CommonModule, ShoppingRoutingModule, ReactiveFormsModule],
-  providers: [ShoppingApiService, JwtService, InventoryGuard,ProductdescResolver],
+  providers: [
+    ShoppingApiService,
+    JwtService,
+    InventoryGuard,
+    ProductdescResolver,
+  ],
 })
 export class ShoppingModule {}

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from '../../services/jwt.service';
 import { ShoppingApiService } from '../../services/shopping-api.service';
 import { take, switchMap,delay } from 'rxjs/operators';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +20,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     private api: ShoppingApiService,
     private router: Router,
     private actRoute: ActivatedRoute,
-    private token: JwtService
+    private token: JwtService,
+    private toast: HotToastService
   ) {
     this.modifyCartItem();
   }
@@ -96,7 +98,11 @@ export class MenuComponent implements OnInit, OnDestroy {
         .updateCart(cartData)
         .pipe(take(1),delay(1000))
         .subscribe((d) => {
+          // console.log(d)
+          this.toast.success(d);
           // this.initShoppingItems();
+        },(e)=>{
+          this.toast.error(e.toString());
         });
 
     if (e && e.quantity === 0 && e?.cartId)
@@ -104,7 +110,10 @@ export class MenuComponent implements OnInit, OnDestroy {
         .deleteCart(e.cartId)
         .pipe(take(1),delay(1000))
         .subscribe((d) => {
+          this.toast.success(d);
           // this.initShoppingItems();
+        },(e)=>{
+          this.toast.error(e.toString());
         });
   }
 

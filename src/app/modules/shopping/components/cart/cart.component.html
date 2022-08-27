@@ -4,7 +4,6 @@
     <div class="d-flex flex-column align-self-center align-items-center">
 
         <ng-container *ngFor="let item of cartItems">
-    
             <div class="card  border-0 shadow mb-4" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-8">
@@ -21,15 +20,29 @@
                                     <i class="fa fa-minus text-secondary"></i>
                 
                                 </button>
+
+                                <ng-container *ngIf="item.loading">
+                                    <span class="small-width d-inline-block">
+
+                                        <div class="spinner-border" role="status" style="width: 1rem;height: 1rem;">
+                                            <span class="visually-hidden">Loading...</span>
+                                          </div>
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="!item.loading">
                 
                                 <input type="number" readonly="readonly" class="border-0 small-width bg-transparent" step="1" min="1"
                                     max="5" [value]="item.quantity" />
+                                </ng-container>
                                 <button type="button" class="btn-sm btn-primary border-0 p-1 px-1 rounded-0 bg-light-black" (click)="addToItem(item)">
                                     <i class="fa fa-plus text-secondary"></i>
                                 </button>
-                
                             </div>
                         </div>
+                        <div class="">
+                            <button type="button" class="btn btn-sm btn-danger" (click)="deletAllItem(item)">Delete</button>
+                        </div>
+
                       </div>
                    
                   </div>

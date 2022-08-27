@@ -24,7 +24,7 @@ export class ShoppingApiService {
   getAllProducts(){
     let token = localStorage.getItem('my-app-token');
     return this.http.get(this.baseurl + 'product/get?all=true',{
-      headers:{'Authorization':`Bearer ${token}`}
+      // headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
@@ -33,7 +33,7 @@ export class ShoppingApiService {
     let params =  new HttpParams().set('id', pId)//.set('sort','DESC')
     return this.http.get(this.baseurl + 'product/get?',{
       params,
-      headers:{'Authorization':`Bearer ${token}`}
+      // headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
@@ -41,7 +41,7 @@ export class ShoppingApiService {
     let token = localStorage.getItem('my-app-token');
     return this.http
     .post(this.baseurl + 'product/new', product, {
-      headers:{'Authorization':`Bearer ${token}`}
+      // headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
@@ -49,7 +49,7 @@ export class ShoppingApiService {
     let token = localStorage.getItem('my-app-token');
     return this.http
     .put(this.baseurl + 'product/update', product, {
-      headers:{'Authorization':`Bearer ${token}`}
+      // headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
@@ -57,21 +57,21 @@ export class ShoppingApiService {
     let token = localStorage.getItem('my-app-token');
     return this.http
     .get(this.baseurl + 'cart/getUserCart/'+userId, {
-      headers:{'Authorization':`Bearer ${token}`}
+      // headers:{'Authorization':`Bearer ${token}`}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
   updateCart(body:any){
     let token = localStorage.getItem('my-app-token');
     return this.http.post(this.baseurl+'/cart/addToCart',body,{
-      headers: {'Authorization':'Bearer '+token}
+      // headers: {'Authorization':'Bearer '+token}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
 
   deleteCart(cartId:string){
     let token = localStorage.getItem('my-app-token');
     return this.http.delete(this.baseurl+'cart/delete/'+cartId,{
-      headers: {'Authorization':'Bearer '+token}
+      // headers: {'Authorization':'Bearer '+token}
     }).pipe(map(this.returnOnlyData),catchError(this.errorHandler));
   }
   returnOnlyData(res: any) {
