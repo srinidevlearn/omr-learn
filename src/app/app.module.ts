@@ -12,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OpacityControllerDirective } from './directive/opacity-controller.directive';
 import { TokenInterceptor } from './modules/shopping/services/token.interceptor';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { ContentProjectionDemoComponent } from './components/content-projection-demo/content-projection-demo.component';
+import { ContentProjectionModule } from './modules/content-projection/content-projection.module';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import { HotToastModule } from '@ngneat/hot-toast';
     TodoSortPipe,
     RegisterFormComponent,
     OpacityControllerDirective,
+    ContentProjectionDemoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ContentProjectionModule,
     HttpClientModule,
     HotToastModule.forRoot({
       position:'top-right',

@@ -1,0 +1,23 @@
+<p>content-projection-demo works!</p>
+<app-layout-page>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0" app-nav>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+        </li>
+    </ul>
+
+    <div sidebar class="d-flex flex-column" #d>
+        <div class=""><a routerLink="todo" class="text-primary">Todo App</a></div>
+        <div class=""><a routerLink="register" class="text-primary">Registration Form
+                Sample</a></div>
+    </div>
+    <div mainContent>
+        <router-outlet></router-outlet>
+    </div>
+</app-layout-page>

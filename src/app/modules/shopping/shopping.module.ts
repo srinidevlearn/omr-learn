@@ -19,6 +19,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
+import { SumTotalPipe } from './pipes/sum-total.pipe';
 
 
 
@@ -50,6 +51,7 @@ import { TokenInterceptor } from './services/token.interceptor';
     ProductCardComponent,
     CartComponent,
     HeaderComponent,
+    SumTotalPipe,
   ],
   imports: [CommonModule, ShoppingRoutingModule, ReactiveFormsModule],
   providers: [
